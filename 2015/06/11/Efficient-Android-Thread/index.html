@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Sigaritus</title>
+  <title>Efficient Android Thread | Sigaritus</title>
   <meta name="author" content="sigaritus">
   
   <meta name="description" content="sigaritus">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Efficient Android Thread"/>
   <meta property="og:site_name" content="Sigaritus"/>
 
   
@@ -52,9 +52,7 @@
   <div class="clearfix"></div>
 </div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-
-  <article class="post">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
   <div class="post-content">
     <header>
@@ -68,13 +66,15 @@
       
       
   
-    <h1 class="title"><a href="/2015/06/11/Efficient-Android-Thread/">Efficient Android Thread</a></h1>
+    <h1 class="title">Efficient Android Thread</h1>
   
 
       
     </header>
     <div class="entry">
       
+        
+          
         
         <blockquote>
 <p>主要介绍了android里使用Thread优化UI更新（optimize UI on Thread）及实现异步（Asynchronous）的技巧。</p>
@@ -186,11 +186,9 @@
       
       
       
-        
-          <div class="alignright share-box">
+        <div class="alignright share-box">
   
 </div>
-        
       
       <div class="clearfix"></div>
     </footer>
@@ -200,68 +198,73 @@
 
 
 
-  
+  <script type="text/javascript">
+  var views = sessionStorage.getItem('/2015/06/11/Efficient-Android-Thread/');
+  console.log(views)
+  if (views != null) {
+    var post = document.getElementById('/2015/06/11/Efficient-Android-Thread/');
+    post.innerHTML = views;
+    post.style.display = "inline";
+  } else {
+    var flag = sessionStorage.getItem('http://yoursite.com' + "/pageviews/" + '0');
+if (flag == "yes"){
+  var paths = null
+  $.each(paths, function(index, path){
+    var post = document.getElementById(path);
+    var views = sessionStorage.getItem(path);
+    if (views != null) {
+      post.innerHTML = views;
+      post.style.display = "inline";
+    }
+  });
+} else if (flag == null){
+  if(typeof require !== 'undefined') XLSX = require('xlsx');
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-      <div class="alignright">
-        <a id="/2015/05/10/hello-world/" class="pageviews"></a>
-      </div>
-      
-        <div class="icon"></div>
-        <time datetime="2015-05-10T15:05:59.000Z"><a href="/2015/05/10/hello-world/">2015-05-10</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2015/05/10/hello-world/">Hello World</a></h1>
-  
+  var url = "https://docs.google.com/spreadsheets/d/" + 'null' + "/export";
+  var oReq = new XMLHttpRequest();
+  oReq.open("GET", url, true);
+  oReq.responseType = "arraybuffer";
 
-      
-    </header>
-    <div class="entry">
-      
-        
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2><h3 id="Create_a_new_post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+  oReq.onload = function(e) {
+    var arraybuffer = oReq.response;
 
-      
-    </div>
-    <footer>
-      
-      
-      
-        
-          <div class="alignright share-box">
-  
-</div>
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
+    /* convert data to binary string */
+    var data = new Uint8Array(arraybuffer);
+	var arr = new Array();
+	for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+	var bstr = arr.join("");
 
+	/* Call XLSX */
+	var workbook = XLSX.read(bstr, {type:"binary"});
 
+    /* DO SOMETHING WITH workbook HERE */
+	var json = to_json(workbook);
 
+	$.each(json., function(index, item){
+  if(item. == '/2015/06/11/Efficient-Android-Thread/'){
+    var post = document.getElementById(item.);
+    post.innerHTML = item.undefined;
+    post.style.display = "inline";
+    sessionStorage.setItem(item., item.undefined);
+  }
+})
+  }
 
-  
+  oReq.send();
+}
 
-
-<nav id="pagination">
-  
-  
-  <div class="clearfix"></div>
-</nav>
+function to_json(workbook) {
+  var result = {};
+  workbook.SheetNames.forEach(function(sheetName) {
+	var roa = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+      if(roa.length > 0){
+		result[sheetName] = roa;
+	  }
+  });
+  return result;
+}
+  }
+</script>
 </div></div>
     <aside id="sidebar" class="alignright">
   
